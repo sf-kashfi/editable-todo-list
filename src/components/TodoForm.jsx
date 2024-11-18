@@ -7,7 +7,7 @@ const TodoForm = () => {
   const todosCtx = useContext(TodosContext);
 
   const onFinish = (values) => {
-    todosCtx.addTodo(values);
+    todosCtx.addTodo(values.todo);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
