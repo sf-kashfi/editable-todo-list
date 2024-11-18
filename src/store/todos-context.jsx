@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 
 export const TodosContext = React.createContext({
   items: [],
+  filter: 'all',
   addTodo: () => {},
   removeTodo: (id) => {},
   editTodo: (id, newText) => {},
-  changeStatus: (id) => {}
+  changeStatus: (id) => {},
+  setFilter: (filter) => {},
 });
 
 const TodosContextProvider = (props) => {
@@ -13,6 +15,8 @@ const TodosContextProvider = (props) => {
     const storedTodos = localStorage.getItem("todos");
     return storedTodos ? JSON.parse(storedTodos) : [];
   });
+
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -50,12 +54,20 @@ const TodosContextProvider = (props) => {
     });
   };
 
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "done") return todo.status;
+    if (filter === "ongoing") return !todo.status;
+    return true;
+  });
+
   const contextValue = {
-    items: todos,
+    items: filteredTodos,
     addTodo: addTodoHandler,
     removeTodo: removeTodoHandler,
     editTodo: editTodoHandler,
     changeStatus: changeStatusHandler,
+    setFilter: setFilter,
+    filter: filter,
   };
 
   return (
