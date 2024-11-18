@@ -1,4 +1,4 @@
-import { Button, Input, List, Space } from "antd";
+import { Button, Checkbox, Input, List, Space } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { useRef, useState } from "react";
 
-const TodoItem = ({ text, onRemoveTodo, onEditTodo }) => {
+const TodoItem = ({ text, status, onRemoveTodo, onEditTodo, onChangeStatus }) => {
   const [editing, setEditing] = useState(false);
   const [inputText, setInputText] = useState(text);
   const inputRef = useRef();
@@ -72,16 +72,22 @@ const TodoItem = ({ text, onRemoveTodo, onEditTodo }) => {
         />,
       ]}
     >
-      {editing ? (
-        <Input
-          value={inputText}
-          onChange={handleChange}
-          variant="borderless"
-          ref={inputRef}
+      <Space>
+        <Checkbox
+          checked={status}
+          onChange={(e) => onChangeStatus(e.target.checked)}
         />
-      ) : (
-        <span>{text}</span>
-      )}
+        {editing ? (
+          <Input
+            value={inputText}
+            onChange={handleChange}
+            variant="borderless"
+            ref={inputRef}
+          />
+        ) : (
+          <span>{text}</span>
+        )}
+      </Space>
     </List.Item>
   );
 };

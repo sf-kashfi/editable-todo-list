@@ -5,7 +5,7 @@ export const TodosContext = React.createContext({
   addTodo: () => {},
   removeTodo: (id) => {},
   editTodo: (id, newText) => {},
-  changeStatus: (id) => {},
+  changeStatus: (id) => {}
 });
 
 const TodosContextProvider = (props) => {

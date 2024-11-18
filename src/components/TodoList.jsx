@@ -14,8 +14,10 @@ const TodoList = () => {
         <TodoItem
           key={item.id}
           text={item.text}
+          status={item.status}
           onRemoveTodo={() => todosCtx.removeTodo(item.id)}
           onEditTodo={(newText) => todosCtx.editTodo(item.id, newText)}
+          onChangeStatus={(newStatus) => todosCtx.changeStatus(item.id)}
         />
       )}
     ></List>
